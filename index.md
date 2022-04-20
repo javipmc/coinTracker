@@ -16,8 +16,9 @@
         let response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=apecoin');
         jsonBody = await response.json();
         console.log(jsonBody);
-        document.getElementById("apevalue").innerHTML =  "APE Price - $" + jsonBody[0]['current_price'];
+        document.getElementById("apevalue").innerHTML =  "APE Current Price - $" + jsonBody[0]['current_price'];
         document.getElementById("apeholding").innerHTML =  "Amount in APE $" + jsonBody[0]['current_price']*APEAMOUNT;
+        document.getElementById("apeholding").innerHTML =  "Profit/Loss: " +  jsonBody[0]['current_price']*APEAMOUNT - APEINITIALAMOUNT;
     }
 
     getApeData();

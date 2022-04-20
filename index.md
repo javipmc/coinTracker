@@ -36,9 +36,14 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 
 Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
 
-<div id="text"></div>
- 
+<div id="test">Hello World</div>
 <script>
-document.getElementById("text").innerHTML = "Text added by JavaScript code";
+    console.log("entering");
+    fetch('https://data.sifchain.finance/beta/pool/atom/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5')
+        .then(respnse => {
+            return response.json();
+        })
+        .then(data =>  document.getElementById("test").innerHTML = data);
 </script>
+</html>
 

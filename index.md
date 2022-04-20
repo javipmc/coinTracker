@@ -2,6 +2,8 @@
 
 <div id="apevalue">$APE value</div>
 <div id="apeholding">$APE value</div>
+<div id="apeoverall">total</div>
+
 <script>
     const APEAMOUNT = 287.83188;
     // console.log("entering");

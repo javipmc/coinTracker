@@ -1,11 +1,15 @@
 ## To the moon!!!!!
 
 
-<div id="apevalue">$APE value</div>
-<div id="apeholding">$APE value</div>
-<div id="apeoverall">Total</div>
-<div></div>
-<div></div>
+<div id="APEvalue">$APE value</div>
+<div id="APEholding">$APE value</div>
+<div id="APEoverall">Total</div>
+<div id="KDAvalue">$KDA value</div>
+<div id="KDAholding">$KDA value</div>
+<div id="KDAoverall">Total</div>
+<div id="RGENvalue">$RGEN value</div>
+<div id="RGENholding">$RGEN value</div>
+<div id="RGENoverall">Total</div>
 <div>FARMS</div>
 <div></div>
 <div id="atom">ATOM FARM</div>
@@ -17,15 +21,41 @@
 <div id="totalFarms">Total</div>
 
 <script>
-    const APEAMOUNT = 287.83188;
-    const APEINITIALAMOUNT = 3255.0;
+
+    //NAMES
     const COSMOS = "cosmos";
     const ETHEREUM = "ethereum";
     const SIFCHAIN = "sifchain";
     const USDCOIN = "usd-coin";
     const APECOIN = "apecoin";
-    let coins = [COSMOS,ETHEREUM,SIFCHAIN,USDCOIN,APECOIN];
-    
+    const PARAGEN = "paragen";
+    const KADENA = "kadena";
+    let coins = [COSMOS,ETHEREUM,SIFCHAIN,USDCOIN,APECOIN,KADENA,PARAGEN];
+
+    //APE
+    const APE = {
+        "amount":287.83188,
+        "initialamount": 3255.0,
+        "ticker": "APE",
+        "name": APECOIN
+    };
+    //PARAGEN
+    const RGEN = {
+        "amount":10005.0,
+        "initialamount": 2773.0,
+        "ticker":"RGEN",
+        "name": PARAGEN
+    };
+    //KADENA
+    const KDA = {
+        "amount":392.87,
+        "initialamount": 2605.0,
+        "ticker":"KDA",
+        "name": KADENA
+    };
+    //LIQUID
+    const LIQUID = 2130.0;
+        
     let cosmosfarm = {
         "ticker" : COSMOS,
         "sifchainPool" :"atom",
@@ -75,7 +105,9 @@
         .then((response) => response.json())
         .then((data) => {
             mymap = new Map(data.map(object => [object["id"],object["current_price"]]));
-            printApe();
+            printCoin(APE);
+            printCoin(KDA);
+            printCoin(RGEN);
         })
 
         //fetch farm coins tokens
@@ -108,12 +140,12 @@
         document.getElementById("totalFarms").innerHTML =  "TOTAL FARMS: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]);
     }
 
-    function printApe() {
-        let currentPrice = mymap.get(APECOIN);
+    function printCoin(coin) {
+        let currentPrice = mymap.get(coin["name"]);
         console.log(currentPrice);
-        document.getElementById("apevalue").innerHTML =  "APE Current Price - $" + currentPrice;
-        document.getElementById("apeholding").innerHTML =  "Amount in APE $" + currentPrice*APEAMOUNT;
-        document.getElementById("apeoverall").innerHTML =  "Profit/Loss: $" +  (currentPrice*APEAMOUNT - APEINITIALAMOUNT);
+        document.getElementById(coin["ticker"]+"value").innerHTML =  coin["ticker"] +" Current Price - $" + currentPrice;
+        document.getElementById(coin["ticker"]+"holding").innerHTML =  "Amount in "+coin["ticker"]+" $" + currentPrice*coin["amount"];
+        document.getElementById(coin["ticker"]+"overall").innerHTML =  "Profit/Loss: $" +  (currentPrice*coin["amount"] - coin["initialamount"]);
     }
 
     getCoinsData();

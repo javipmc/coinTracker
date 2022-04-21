@@ -8,10 +8,12 @@
 <div>FARMS</div>
 <div></div>
 <div id="atom">ATOM FARM</div>
+<div id="atomoverall">ATOM FARM</div>
 
 <script>
     const APEAMOUNT = 287.83188;
     const APEINITIALAMOUNT = 3255.0;
+    const ROWANATOMINITIALAMOUNT = 3240;
     const COSMOS = "cosmos";
     const ETHEREUM = "ethereum";
     const SIFCHAIN = "sifchain";
@@ -19,21 +21,10 @@
     const APECOIN = "apecoin";
     let coins = [COSMOS,ETHEREUM,SIFCHAIN,UOSDCOIN,APECOIN];
     let mymap;
-    // console.log("entering");
-    // fetch('https://data.sifchain.finance/beta/pool/atom/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5')
-    //     .then(respnse => {
-    //         return response.json();
-    //     })
-    //     .then(data =>  document.getElementById("test").innerHTML = data);
+
 
     var queryString = coins.join(',')
 
-    // async function getCoinsData() {
-    //     let response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids='+queryString);
-    //     jsonBody = await response.json();
-    //     mymap = new Map(jsonBody.map(object => [object["id"],object["current_price"]]));
-    //     console.log(mymap);
-    // }
 
     function getCoinsData() {
 
@@ -46,26 +37,22 @@
         })
 
         //fetch farm coins tokens
-        fetch('https://data.sifchain.finance/beta/pool/atom/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5',{
-            method: "GET", 
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then((response) => response.json())
+        fetch('https://cors-anywhere.herokuapp.com/https://data.sifchain.finance/beta/pool/atom/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5')
+        .then(response=>response.json())
         .then((data) => {
+            console.log("the data");
             console.log(data);
-            let atom = data[0]["externalAsset"]["balance"]/1000000;
-            let rowan = data[0]["nativeAsset"]["balance"]/1000000000000000000;
+            let atom = data["externalAsset"]["balance"]/1000000;
+            let rowan = data["nativeAsset"]["balance"]/1000000000000000000;
             console.log(atom,rowan);
-            printAtom();
+            printAtom(atom,rowan);
         })
     }
 
     function printAtom(atom,rowan) {
-        document.getElementById("atom").innerHTML =  "Atom/Rowan: $" +  (atom*mymap.get(COSMOS) + rowan*mymap.get(SIFCHAIN));
-
+        let amount = atom*mymap.get(COSMOS) + rowan*mymap.get(SIFCHAIN)
+        document.getElementById("atom").innerHTML =  "Atom/Rowan: $" +  amount;
+        document.getElementById("atomoverall").innerHTML =  "Profit/Loss: $" +  (amount - ROWANATOMINITIALAMOUNT);
     }
 
     function printApe() {

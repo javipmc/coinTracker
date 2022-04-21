@@ -12,6 +12,7 @@
                 <th>Amount</th>
                 <th>Initial Amount</th>
                 <th>Profit/Loss</th>
+            </tr>
         </tbody>    
     </table>
   </div>

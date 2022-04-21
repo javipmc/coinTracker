@@ -1,5 +1,7 @@
 ## To the moon!!!!!
 
+<!DOCTYPE html>
+
 <div id="apevalue">$APE value</div>
 <div id="apeholding">$APE value</div>
 <div id="apeoverall">Total</div>
@@ -9,17 +11,58 @@
 <div></div>
 <div id="atom">ATOM FARM</div>
 <div id="atomoverall">ATOM FARM</div>
+<div id="ethereum">ETHEREUM FARM</div>
+<div id="ethereumoverall">ETHEREUM FARM</div>
+<div id="usdc">USDC FARM</div>
+<div id="usdcoverall">USDC FARM</div>
+<div id="totalFarms">Total</div>
 
 <script>
     const APEAMOUNT = 287.83188;
     const APEINITIALAMOUNT = 3255.0;
-    const ROWANATOMINITIALAMOUNT = 3240;
     const COSMOS = "cosmos";
     const ETHEREUM = "ethereum";
     const SIFCHAIN = "sifchain";
-    const UOSDCOIN = "usd-coin";
+    const USDCOIN = "usd-coin";
     const APECOIN = "apecoin";
-    let coins = [COSMOS,ETHEREUM,SIFCHAIN,UOSDCOIN,APECOIN];
+    let coins = [COSMOS,ETHEREUM,SIFCHAIN,USDCOIN,APECOIN];
+    
+    let cosmosfarm = {
+        "ticker" : COSMOS,
+        "sifchainPool" :"atom",
+        "div1": "atom",
+        "div2": "atomoverall",
+        "token":"ATOM",
+        "value":0,
+        "profit":0,
+        "initialAmount":3240,
+        "decimals":1000000
+    }
+
+    let ethereumfarm = {
+        "ticker" : ETHEREUM,
+        "sifchainPool" :"eth",
+        "div1": "ethereum",
+        "div2": "ethereumoverall",
+        "token":"ETH",
+        "value":0,
+        "profit":0,
+        "initialAmount":3000,
+        "decimals":1000000000000000000
+    }
+
+    let usdcfarm = {
+        "ticker" : USDCOIN,
+        "sifchainPool" :"usdc",
+        "div1": "usdc",
+        "div2": "usdcoverall",
+        "token":"USDC",
+        "value":0,
+        "profit":0,
+        "initialAmount":2400,
+        "decimals":1000000
+    }
+
     let mymap;
 
 
@@ -37,26 +80,36 @@
         })
 
         //fetch farm coins tokens
-        fetch('https://cors-anywhere.herokuapp.com/https://data.sifchain.finance/beta/pool/atom/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5')
+        getFarmData(cosmosfarm);
+        getFarmData(ethereumfarm);
+        getFarmData(usdcfarm);
+    }
+
+    function getFarmData(farm) {
+
+        fetch('https://cors-anywhere.herokuapp.com/https://data.sifchain.finance/beta/pool/'+farm['sifchainPool']+'/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5')
         .then(response=>response.json())
         .then((data) => {
-            console.log("the data");
-            console.log(data);
-            let atom = data["externalAsset"]["balance"]/1000000;
-            let rowan = data["nativeAsset"]["balance"]/1000000000000000000;
-            console.log(atom,rowan);
-            printAtom(atom,rowan);
+            let token1 = data["externalAsset"]["balance"]/farm['decimals'];
+            let token2 = data["nativeAsset"]["balance"]/1000000000000000000;
+            console.log(mymap);
+            farm["value"] = token1*mymap.get(farm["ticker"]) + token2*mymap.get(SIFCHAIN)
+            farm["profit"] = farm["value"] - farm["initialAmount"];
+            printFarm(farm);
+            updateTotalFarms();
         })
     }
 
-    function printAtom(atom,rowan) {
-        let amount = atom*mymap.get(COSMOS) + rowan*mymap.get(SIFCHAIN)
-        document.getElementById("atom").innerHTML =  "Atom/Rowan: $" +  amount;
-        document.getElementById("atomoverall").innerHTML =  "Profit/Loss: $" +  (amount - ROWANATOMINITIALAMOUNT);
+    function printFarm(farm) {
+        document.getElementById(farm["div1"]).innerHTML =  farm["token"] +"/ROWAN: $" +  farm["value"];
+        document.getElementById(farm["div2"]).innerHTML =  "Profit/Loss: $" +  farm["profit"];
+    }
+
+    function updateTotalFarms(){
+        document.getElementById("totalFarms").innerHTML =  "TOTAL FARMS: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]);
     }
 
     function printApe() {
-        console.log(mymap);
         let currentPrice = mymap.get(APECOIN);
         console.log(currentPrice);
         document.getElementById("apevalue").innerHTML =  "APE Current Price - $" + currentPrice;
@@ -67,3 +120,4 @@
     getCoinsData();
 
 </script>
+</html>

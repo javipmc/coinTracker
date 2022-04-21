@@ -46,7 +46,13 @@
         })
 
         //fetch farm coins tokens
-        fetch('https://data.sifchain.finance/beta/pool/atom/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5')
+        fetch('https://data.sifchain.finance/beta/pool/atom/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5',{
+            method: "GET", 
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
         .then((response) => response.json())
         .then((data) => {
             console.log(data);

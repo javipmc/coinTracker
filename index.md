@@ -1,6 +1,5 @@
 ## To the moon!!!!!
 
-<!DOCTYPE html>
 
 <div id="apevalue">$APE value</div>
 <div id="apeholding">$APE value</div>

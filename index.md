@@ -1,24 +1,28 @@
 ## To the moon!!!!!
 
 
-<div id="APEvalue">$APE value</div>
-<div id="APEholding">$APE value</div>
-<div id="APEoverall">Total</div>
-<div id="KDAvalue">$KDA value</div>
-<div id="KDAholding">$KDA value</div>
-<div id="KDAoverall">Total</div>
-<div id="RGENvalue">$RGEN value</div>
-<div id="RGENholding">$RGEN value</div>
-<div id="RGENoverall">Total</div>
-<div>FARMS</div>
-<div></div>
-<div id="atom">ATOM FARM</div>
-<div id="atomoverall">ATOM FARM</div>
-<div id="ethereum">ETHEREUM FARM</div>
-<div id="ethereumoverall">ETHEREUM FARM</div>
-<div id="usdc">USDC FARM</div>
-<div id="usdcoverall">USDC FARM</div>
-<div id="totalFarms">Total</div>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  
+<div class="w3-container">
+
+  
+    <table id="myTable" class="w3-table-all">
+        <tbody>
+            <tr>
+                <th>Coin</th>
+                <th>Amount</th>
+                <th>Initial Amount</th>
+                <th>Profit/Loss</th>
+        </tbody>
+      
+    </table>
+  </div>
+  <p id="totalAmount"></p>
+  <p id="profitLoss"></p>
+  
+
+
 
 <script>
 
@@ -34,24 +38,30 @@
 
     //APE
     const APE = {
+        "value":0,
         "amount":287.83188,
         "initialamount": 3255.0,
         "ticker": "APE",
-        "name": APECOIN
+        "name": APECOIN,
+        "profit":0
     };
     //PARAGEN
     const RGEN = {
+        "value":0,
         "amount":10005.0,
         "initialamount": 2773.0,
         "ticker":"RGEN",
-        "name": PARAGEN
+        "name": PARAGEN,
+        "profit":0
     };
     //KADENA
     const KDA = {
+        "value":0,
         "amount":392.87,
         "initialamount": 2605.0,
         "ticker":"KDA",
-        "name": KADENA
+        "name": KADENA,
+        "profit":0
     };
     //LIQUID
     const LIQUID = 2130.0;
@@ -127,27 +137,64 @@
             farm["value"] = token1*mymap.get(farm["ticker"]) + token2*mymap.get(SIFCHAIN)
             farm["profit"] = farm["value"] - farm["initialAmount"];
             printFarm(farm);
-            updateTotalFarms();
         })
     }
 
     function printFarm(farm) {
-        document.getElementById(farm["div1"]).innerHTML =  farm["token"] +"/ROWAN: $" +  farm["value"];
-        document.getElementById(farm["div2"]).innerHTML =  "Profit/Loss: $" +  farm["profit"];
+        // document.getElementById(farm["div1"]).innerHTML =  farm["token"] +"/ROWAN: $" +  farm["value"];
+        // document.getElementById(farm["div2"]).innerHTML =  "Profit/Loss: $" +  farm["profit"];
+        var tbodyRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+
+        var newRow = tbodyRef.insertRow();  
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(farm['token']);
+        newCell.appendChild(newText);   
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(farm["value"]);
+        newCell.appendChild(newText);
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(farm["initialAmount"]);
+        newCell.appendChild(newText);
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(farm["profit"]);
+        newCell.appendChild(newText);
+        // updateTotal();
     }
 
-    function updateTotalFarms(){
-        document.getElementById("totalFarms").innerHTML =  "TOTAL FARMS: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]);
+    function updateTotal(){
+        document.getElementById("totalAmount").innerHTML =  "Total: "+ (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"],RGEN["value"],KDA["value"],APE["value"]);
+        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"],RGEN["profit"],KDA["profit"],APE["profit"]);
     }
 
     function printCoin(coin) {
         let currentPrice = mymap.get(coin["name"]);
-        console.log(currentPrice);
-        document.getElementById(coin["ticker"]+"value").innerHTML =  coin["ticker"] +" Current Price - $" + currentPrice;
-        document.getElementById(coin["ticker"]+"holding").innerHTML =  "Amount in "+coin["ticker"]+" $" + currentPrice*coin["amount"];
-        document.getElementById(coin["ticker"]+"overall").innerHTML =  "Profit/Loss: $" +  (currentPrice*coin["amount"] - coin["initialamount"]);
+        coin["profit"] = currentPrice*coin["amount"] - coin["initialamount"]
+        coin["value"] = currentPrice*coin["amount"]
+
+        var tbodyRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+
+        var newRow = tbodyRef.insertRow();  
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(coin['ticker']);
+        newCell.appendChild(newText);   
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(coin["value"]);
+        newCell.appendChild(newText);   
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(coin["initialamount"]);
+        newCell.appendChild(newText);
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(coin["profit"]);
+        newCell.appendChild(newText);
+
+        // updateTotal();
+        // console.log(currentPrice);
+        // document.getElementById(coin["ticker"]+"value").innerHTML =  coin["ticker"] +" Current Price - $" + currentPrice;
+        // document.getElementById(coin["ticker"]+"holding").innerHTML =  "Amount in "+coin["ticker"]+" $" + currentPrice*coin["amount"];
+        // document.getElementById(coin["ticker"]+"overall").innerHTML =  "Profit/Loss: $" +  (currentPrice*coin["amount"] - coin["initialamount"]);
     }
 
     getCoinsData();
+
 
 </script>

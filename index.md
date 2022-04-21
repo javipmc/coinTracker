@@ -120,4 +120,3 @@
     getCoinsData();
 
 </script>
-</html>

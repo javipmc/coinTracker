@@ -5,8 +5,6 @@
 
   
 <div class="w3-container">
-
-  
     <table id="myTable" class="w3-table-all">
         <tbody>
             <tr>
@@ -14,8 +12,7 @@
                 <th>Amount</th>
                 <th>Initial Amount</th>
                 <th>Profit/Loss</th>
-        </tbody>
-      
+        </tbody>    
     </table>
   </div>
   <p id="totalAmount"></p>

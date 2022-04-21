@@ -156,12 +156,12 @@
         var newCell = newRow.insertCell();  
         var newText = document.createTextNode(farm["profit"]);
         newCell.appendChild(newText);
-        // updateTotal();
+        updateTotal();
     }
 
     function updateTotal(){
-        document.getElementById("totalAmount").innerHTML =  "Total: "+ (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"],RGEN["value"],KDA["value"],APE["value"]);
-        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"],RGEN["profit"],KDA["profit"],APE["profit"]);
+        document.getElementById("totalAmount").innerHTML =  "Total: "+ (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]);
+        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]);
     }
 
     function printCoin(coin) {
@@ -185,11 +185,7 @@
         var newText = document.createTextNode(coin["profit"]);
         newCell.appendChild(newText);
 
-        // updateTotal();
-        // console.log(currentPrice);
-        // document.getElementById(coin["ticker"]+"value").innerHTML =  coin["ticker"] +" Current Price - $" + currentPrice;
-        // document.getElementById(coin["ticker"]+"holding").innerHTML =  "Amount in "+coin["ticker"]+" $" + currentPrice*coin["amount"];
-        // document.getElementById(coin["ticker"]+"overall").innerHTML =  "Profit/Loss: $" +  (currentPrice*coin["amount"] - coin["initialamount"]);
+        updateTotal();
     }
 
     getCoinsData();

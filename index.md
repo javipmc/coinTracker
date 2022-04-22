@@ -23,8 +23,6 @@
 
 
 <script>
-
-    //NAMES
     const COSMOS = "cosmos";
     const ETHEREUM = "ethereum";
     const SIFCHAIN = "sifchain";
@@ -62,7 +60,22 @@
         "profit":0
     };
     //LIQUID
-    const LIQUID = 2130.0;
+
+    const liquid = {
+        "value" :2130.0 + 1308.0 + 120.0,
+        "profit": 0,
+        "initialAmount": 2130.0 + 1308.0 + 120.0,
+        "token": "BUSD",
+        "ticker": "BUSD"
+    }
+
+    const nomiswap = {
+        "value" :6500.0,
+        "profit": 300,
+        "initialAmount": 6200,
+        "token": "NOMI",
+        "ticker": "NOMI"
+    }
         
     let cosmosfarm = {
         "ticker" : COSMOS,
@@ -122,16 +135,18 @@
         getFarmData(cosmosfarm);
         getFarmData(ethereumfarm);
         getFarmData(usdcfarm);
+        
+        printFarm(liquid);
+        printFarm(nomiswap);
     }
 
     function getFarmData(farm) {
 
-        fetch('https://cors-anywhere.herokuapp.com/https://data.sifchain.finance/beta/pool/'+farm['sifchainPool']+'/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5')
+        fetch('https://fathomless-plateau-83860.herokuapp.com/https://data.sifchain.finance/beta/pool/'+farm['sifchainPool']+'/liquidityProvider/sif1tn83mw9lryfm38aah8m94kkle8uwzwvfj7n4n5')
         .then(response=>response.json())
         .then((data) => {
             let token1 = data["externalAsset"]["balance"]/farm['decimals'];
             let token2 = data["nativeAsset"]["balance"]/1000000000000000000;
-            console.log(mymap);
             farm["value"] = token1*mymap.get(farm["ticker"]) + token2*mymap.get(SIFCHAIN)
             farm["profit"] = farm["value"] - farm["initialAmount"];
             printFarm(farm);
@@ -160,9 +175,10 @@
     }
 
     function updateTotal(){
-        document.getElementById("totalAmount").innerHTML =  "Total: "+ (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]);
-        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]);
+        document.getElementById("totalAmount").innerHTML =  "Total: "+ (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]);
+        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]+nomiswap["profit"]);
     }
+
 
     function printCoin(coin) {
         let currentPrice = mymap.get(coin["name"]);

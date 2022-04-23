@@ -35,6 +35,16 @@
     const INITIALQTT = 27046;
     let coins = [COSMOS,ETHEREUM,SIFCHAIN,USDCOIN,APECOIN,KADENA,PARAGEN];
 
+    const ETH = {
+        "value":0,
+        "amount":0.2213,
+        "initialamount": 656.0,
+        "ticker": "ETH",
+        "name": ETHEREUM,
+        "profit":0 
+    }
+
+
     //APE
     const APE = {
         "value":0,
@@ -139,6 +149,7 @@
         .then((data) => {
             mymap = new Map(data.map(object => [object["id"],object["current_price"]]));
             printCoin(APE);
+            printCoin(ETH);
             printCoin(KDA);
             printCoin(RGEN);
             printFarm(liquid);
@@ -202,9 +213,9 @@
     }
 
     function updateTotal(){
-        let totalAmount = (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]+creepz["total"]).toFixed(2);
+        let totalAmount = (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]+ETH["value"]+creepz["total"]).toFixed(2);
         document.getElementById("totalAmount").innerHTML =  "Total: "+ totalAmount;
-        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]+nomiswap["profit"]+(creepz["profit"]*mymap.get(ETHEREUM))).toFixed(2);
+        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+ETH["profit"]+KDA["profit"]+APE["profit"]+nomiswap["profit"]+(creepz["profit"]*mymap.get(ETHEREUM))).toFixed(2);
         document.getElementById("percentageChange").innerHTML =  "Percentage change: "+ (((totalAmount/INITIALQTT)-1)*100).toFixed(2) + "%";
     }
 

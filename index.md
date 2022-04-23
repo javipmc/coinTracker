@@ -65,17 +65,26 @@
     //LIQUID
 
     const liquid = {
-        "value" :2130.0 + 1308.0 + 120.0,
+        "value" : 1308.0,
         "profit": 0,
-        "initialAmount": 2130.0 + 1308.0 + 120.0,
+        "initialAmount": 1308.0,
         "token": "BUSD",
         "ticker": "BUSD"
     }
+    
+    const creepz = {
+        "total":0,
+        "value" :0,
+        "profit": 0,
+        "initialAmount": 1.79,
+        "token": "CREEPZ",
+        "ticker": "CREEPZ"
+    }
 
     const nomiswap = {
-        "value" :6500.0,
+        "value" :2871.0,
         "profit": 300,
-        "initialAmount": 6200,
+        "initialAmount": 2571,
         "token": "NOMI",
         "ticker": "NOMI"
     }
@@ -132,6 +141,9 @@
             printCoin(APE);
             printCoin(KDA);
             printCoin(RGEN);
+            printFarm(liquid);
+            printFarm(nomiswap);
+            updateOpenSea();
         })
 
         //fetch farm coins tokens
@@ -139,8 +151,6 @@
         getFarmData(ethereumfarm);
         getFarmData(usdcfarm);
         
-        printFarm(liquid);
-        printFarm(nomiswap);
     }
 
     function getFarmData(farm) {
@@ -157,8 +167,7 @@
     }
 
     function printFarm(farm) {
-        // document.getElementById(farm["div1"]).innerHTML =  farm["token"] +"/ROWAN: $" +  farm["value"];
-        // document.getElementById(farm["div2"]).innerHTML =  "Profit/Loss: $" +  farm["profit"];
+
         var tbodyRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 
         var newRow = tbodyRef.insertRow();  
@@ -181,10 +190,21 @@
         updateTotal();
     }
 
+    function updateOpenSea() {
+        fetch('https://fathomless-plateau-83860.herokuapp.com/https://api.opensea.io/collection/genesis-creepz')
+        .then(response=>response.json())
+        .then((data) => {
+            creepz["value"] = data["collection"]["stats"]["floor_price"];
+            creepz["total"] = data["collection"]["payment_tokens"][0]["usd_price"]*creepz["value"];
+            creepz["profit"] = creepz["value"] -creepz["initialAmount"];
+            printFarm(creepz);
+        })
+    }
+
     function updateTotal(){
-        let totalAmount = (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]).toFixed(2);
+        let totalAmount = (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]+creepz["total"]).toFixed(2);
         document.getElementById("totalAmount").innerHTML =  "Total: "+ totalAmount;
-        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]+nomiswap["profit"]).toFixed(2);
+        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]+nomiswap["profit"]+(creepz["profit"]*mymap.get(ETHEREUM))).toFixed(2);
         document.getElementById("percentageChange").innerHTML =  "Percentage change: "+ (((totalAmount/INITIALQTT)-1)*100).toFixed(2) + "%";
     }
 

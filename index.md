@@ -19,6 +19,7 @@
   </div>
   <p id="totalAmount"></p>
   <p id="profitLoss"></p>
+  <p id="percentageChange"></p>
   
 
 
@@ -31,6 +32,7 @@
     const APECOIN = "apecoin";
     const PARAGEN = "paragen";
     const KADENA = "kadena";
+    const INITIALQTT = 27046;
     let coins = [COSMOS,ETHEREUM,SIFCHAIN,USDCOIN,APECOIN,KADENA,PARAGEN];
 
     //APE
@@ -180,8 +182,10 @@
     }
 
     function updateTotal(){
-        document.getElementById("totalAmount").innerHTML =  "Total: "+ (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]).toFixed(2);
+        let totalAmount = (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]).toFixed(2);
+        document.getElementById("totalAmount").innerHTML =  "Total: "+ totalAmount;
         document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]+nomiswap["profit"]).toFixed(2);
+        document.getElementById("percentageChange").innerHTML =  "Percentage change: "+ (((totalAmount/INITIALQTT)-1)*100).toFixed(2) + "%";
     }
 
 

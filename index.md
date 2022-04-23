@@ -12,6 +12,7 @@
                 <th>Amount</th>
                 <th>Initial Amount</th>
                 <th>Profit/Loss</th>
+                <th>% Change</th>
             </tr>
         </tbody>    
     </table>
@@ -163,20 +164,24 @@
         var newText = document.createTextNode(farm['token']);
         newCell.appendChild(newText);   
         var newCell = newRow.insertCell();  
-        var newText = document.createTextNode(farm["value"]);
+        var newText = document.createTextNode(farm["value"].toFixed(2));
         newCell.appendChild(newText);
         var newCell = newRow.insertCell();  
-        var newText = document.createTextNode(farm["initialAmount"]);
+        var newText = document.createTextNode(farm["initialAmount"].toFixed(2));
         newCell.appendChild(newText);
         var newCell = newRow.insertCell();  
-        var newText = document.createTextNode(farm["profit"]);
+        var newText = document.createTextNode(farm["profit"].toFixed(2));
+        newCell.appendChild(newText);
+        let percentage = ((farm["value"]/farm["initialAmount"])-1)*100
+        var newCell = newRow.insertCell();  
+        var newText = document.createTextNode(percentage.toFixed(2));
         newCell.appendChild(newText);
         updateTotal();
     }
 
     function updateTotal(){
-        document.getElementById("totalAmount").innerHTML =  "Total: "+ (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]);
-        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]+nomiswap["profit"]);
+        document.getElementById("totalAmount").innerHTML =  "Total: "+ (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]).toFixed(2);
+        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+KDA["profit"]+APE["profit"]+nomiswap["profit"]).toFixed(2);
     }
 
 
@@ -192,13 +197,17 @@
         var newText = document.createTextNode(coin['ticker']);
         newCell.appendChild(newText);   
         var newCell = newRow.insertCell();  
-        var newText = document.createTextNode(coin["value"]);
+        var newText = document.createTextNode(coin["value"].toFixed(2));
         newCell.appendChild(newText);   
         var newCell = newRow.insertCell();  
-        var newText = document.createTextNode(coin["initialamount"]);
+        var newText = document.createTextNode(coin["initialamount"].toFixed(2));
         newCell.appendChild(newText);
         var newCell = newRow.insertCell();  
-        var newText = document.createTextNode(coin["profit"]);
+        var newText = document.createTextNode(coin["profit"].toFixed(2));
+        newCell.appendChild(newText);
+        var newCell = newRow.insertCell();  
+        let percentage = ((coin["value"]/coin["initialamount"])-1)*100
+        var newText = document.createTextNode(percentage.toFixed(2));
         newCell.appendChild(newText);
 
         updateTotal();

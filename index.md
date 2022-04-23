@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <div>
-    <img class="center" src="https://c.tenor.com/EKA5gO8x4ckAAAAC/apecoin.gif"></img>
+    <img class="center" src="https://c.tenor.com/EKA5gO8x4ckAAAAC/apecoin.gif">
 </div>
 <div class="w3-container">
     <table id="myTable" class="w3-table-all">

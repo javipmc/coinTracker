@@ -1,9 +1,31 @@
 ## To the moon!!!!!
 
 
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+        margin-top:50px;
+        margin-bottom: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 280;
+        width: 498;
+    }
+
+    .marginLeft {
+        display: block;
+        float: left;
+        padding-right: 30px;
+        padding-left: 20px;
+    }
+</style>
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-  
+<div>
+    <img class="center" src="https://c.tenor.com/EKA5gO8x4ckAAAAC/apecoin.gif"></img>
+</div>
 <div class="w3-container">
     <table id="myTable" class="w3-table-all">
         <tbody>
@@ -17,9 +39,9 @@
         </tbody>    
     </table>
   </div>
-  <p id="totalAmount"></p>
-  <p id="profitLoss"></p>
-  <p id="percentageChange"></p>
+  <p class="marginLeft" id="totalAmount"></p>
+  <p class="marginLeft" id="profitLoss"></p>
+  <p class="marginLeft" id="percentageChange"></p>
   
 
 
@@ -248,6 +270,8 @@
         updateTotal();
     }
 
+
+    
     getCoinsData();
 
 

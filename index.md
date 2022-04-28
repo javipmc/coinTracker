@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <div>
-    <img class="center" src="https://c.tenor.com/EKA5gO8x4ckAAAAC/apecoin.gif">
+    <img class="center" src="https://preview.redd.it/cso30i95q0w01.jpg?auto=webp&s=ad0795ca473dfb1de54b27bc722c3f6fc066dacc">
 </div>
 <div class="w3-container">
     <table id="myTable" class="w3-table-all">
@@ -119,7 +119,7 @@
     const nomiswap = {
         "value" :2871.0,
         "profit": 300,
-        "initialAmount": 2571,
+        "initialAmount": 2200,
         "token": "NOMI",
         "ticker": "NOMI"
     }
@@ -211,6 +211,8 @@
             const nomiValue = data["NMX"]*mymap.get(NOMINEX);
             const busdValue = data["BUSD"]*mymap.get(BUSD);
             const nomiRewards = data["REWARDS"]*mymap.get(NOMINEX);
+            console.log(data["NMX"]);
+            console.log(nomiValue,busdValue,nomiRewards);
             nomiswap["value"] = nomiValue+busdValue + nomiRewards;
             nomiswap["profit"] = nomiswap["value"]  - nomiswap["initialAmount"];
             printFarm(nomiswap);

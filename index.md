@@ -3,14 +3,14 @@
 
 <style>
     .center {
-        display: flex;
+        display: block;
         justify-content: center;
         margin-top:50px;
         margin-bottom: 50px;
         margin-left: auto;
         margin-right: auto;
-        height: 280;
-        width: 498;
+        height: 350px;
+        width: 350px;
     }
 
     .marginLeft {

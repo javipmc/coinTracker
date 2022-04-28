@@ -103,7 +103,7 @@
         "profit": 0,
         "initialAmount": 1308.0,
         "token": "BUSD",
-        "profit": 3000,
+        "profit": 0,
         "ticker": "BUSD"
     }
     
@@ -254,10 +254,14 @@
         })
     }
 
+    function computeProfit(from) {
+        from["profit"] = from["value"] - from["initialAmount"];
+    }
+
     function updateTotal(){
         let totalAmount = (cosmosfarm["value"]+ethereumfarm["value"]+usdcfarm["value"]+RGEN["value"]+KDA["value"]+APE["value"]+liquid["value"]+nomiswap["value"]+ETH["value"]+creepz["total"]).toFixed(2);
         document.getElementById("totalAmount").innerHTML =  "Total: "+ totalAmount;
-        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (cosmosfarm["profit"]+ethereumfarm["profit"]+usdcfarm["profit"]+RGEN["profit"]+ETH["profit"]+KDA["profit"]+APE["profit"]+liquid["profit"]+nomiswap["profit"]+(creepz["profit"]*mymap.get(ETHEREUM))).toFixed(2);
+        document.getElementById("profitLoss").innerHTML =  "Profit/Loss: "+ (totalAmount-INITIALQTT).toFixed(2);
         document.getElementById("percentageChange").innerHTML =  "Percentage change: "+ (((totalAmount/INITIALQTT)-1)*100).toFixed(2) + "%";
     }
 

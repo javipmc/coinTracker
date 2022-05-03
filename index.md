@@ -247,9 +247,11 @@
         fetch('https://fathomless-plateau-83860.herokuapp.com/https://api.opensea.io/collection/genesis-creepz')
         .then(response=>response.json())
         .then((data) => {
-            creepz["value"] = data["collection"]["stats"]["floor_price"];
-            creepz["total"] = data["collection"]["payment_tokens"][0]["usd_price"]*creepz["value"];
-            creepz["profit"] = creepz["value"] -creepz["initialAmount"];
+            // creepz["value"] = data["collection"]["stats"]["floor_price"];
+            // creepz["total"] = data["collection"]["payment_tokens"][0]["usd_price"]*creepz["value"];
+            creepz["value"] = creepz["initialAmount"];
+            creepz["total"] = data["collection"]["payment_tokens"][0]["usd_price"]*creepz["initialAmount"];
+            // creepz["profit"] = creepz["value"] -creepz["initialAmount"];
             printFarm(creepz);
         })
     }

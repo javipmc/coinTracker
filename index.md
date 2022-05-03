@@ -72,8 +72,8 @@
     //APE
     const APE = {
         "value":0,
-        "amount":287.83188 - 150.0, //287.83188 - 150.0
-        "initialamount": 1598.85, //3255.0 - 450.12
+        "amount":287.83188 - 150.0-100.0, //287.83188 - 150.0
+        "initialamount": 438.84, //3255.0 - 450.12
         "ticker": "APE",
         "name": APECOIN,
         "profit":0
@@ -99,7 +99,7 @@
     //LIQUID
 
     const liquid = {
-        "value" : 1308.0 + 3000,
+        "value" : 1308.0 + 3000 + 2427.0 ,
         "profit": 0,
         "initialAmount": 1308.0,
         "token": "BUSD",
